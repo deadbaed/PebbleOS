@@ -8,7 +8,21 @@
 #include "drivers/display/display.h"
 #include "drivers/accel.h"
 #include "drivers/button.h"
+#ifdef CONFIG_ACCEL_LIS2DW12
+#include "drivers/imu/lis2dw12/lis2dw12.h"
+#endif
+#ifdef CONFIG_ACCEL_LSM6DSO
+#include "drivers/imu/lsm6dso/lsm6dso.h"
+#endif
+#ifdef CONFIG_ACCEL_BMA255
+#include "drivers/imu/bma255/bma255.h"
+#endif
+#ifdef CONFIG_ACCEL_BMI160
+#include "drivers/imu/bmi160/bmi160.h"
+#endif
+#ifdef CONFIG_MAG_MMC5603NJ
 #include "drivers/imu/mmc5603nj/mmc5603nj.h"
+#endif
 #include "kernel/events.h"
 #include "process_management/process_manager.h"
 #ifdef CONFIG_SERVICE_TOUCH
@@ -19,8 +33,21 @@
 void prv_change_orientation(bool rotated) {
   display_set_rotated(rotated);
   button_set_rotated(rotated);
+#ifdef CONFIG_ACCEL_LIS2DW12
   accel_set_rotated(rotated);
+#endif
+#ifdef CONFIG_MAG_MMC5603NJ
   mag_set_rotated(rotated);
+#endif
+#ifdef CONFIG_ACCEL_LSM6DSO
+  accel_set_rotated(rotated);
+#endif
+#ifdef CONFIG_ACCEL_BMA255
+  accel_set_rotated(rotated);
+#endif
+#ifdef CONFIG_ACCEL_BMI160
+  accel_set_rotated(rotated);
+#endif
 #ifdef CONFIG_SERVICE_TOUCH
   touch_set_rotated(rotated);
 #endif
